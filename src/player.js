@@ -19,7 +19,7 @@ export class Player {
   }
 
   update(dt) {
-    const k = this.keys, live = this.controls.isLocked || this.free;
+    const k = this.keys, live = (this.controls.isLocked || this.free) && !this.dead;
     const f = (live && (k.has('KeyW') || k.has('ArrowUp')) ? 1 : 0) - (live && (k.has('KeyS') || k.has('ArrowDown')) ? 1 : 0);
     const s = (live && (k.has('KeyD') || k.has('ArrowRight')) ? 1 : 0) - (live && (k.has('KeyA') || k.has('ArrowLeft')) ? 1 : 0);
     const fwd = new THREE.Vector3();
@@ -29,7 +29,7 @@ export class Player {
     const want = fwd.multiplyScalar(f).add(right.multiplyScalar(s));
     if (want.lengthSq() > 1) want.normalize();
     const onGround = this.pos.y <= 0;
-    want.multiplyScalar(k.has('ShiftLeft') || k.has('ShiftRight') ? RUN : WALK);
+    want.multiplyScalar((k.has('ShiftLeft') || k.has('ShiftRight') ? RUN : WALK) * (this.speedMul ?? 1));
     this.vel.lerp(want, 1 - Math.exp(-dt * (onGround ? 12 : 2.5)));
     this.pos.addScaledVector(this.vel, dt);
 
@@ -50,7 +50,7 @@ export class Player {
 
   collide() {
     const p = this.pos;
-    for (const c of this.colliders) {
+    for (const c of this.dynamic ? this.colliders.concat(this.dynamic) : this.colliders) {
       let dx = p.x - c.x, dz = p.z - c.z;
       if (c.r) {
         const d = Math.hypot(dx, dz), m = c.r + RADIUS;
