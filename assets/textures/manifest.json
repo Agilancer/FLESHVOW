@@ -1,0 +1,354 @@
+{
+ "ground": {
+  "stone_light": [
+   256,
+   256
+  ],
+  "stone_slabs_dark": [
+   256,
+   256
+  ],
+  "stone_slabs_cracked": [
+   256,
+   256
+  ],
+  "pebbles": [
+   256,
+   256
+  ],
+  "stone_mossy": [
+   256,
+   256
+  ],
+  "flagstone_cobble": [
+   256,
+   256
+  ],
+  "stone_gravel": [
+   256,
+   256
+  ],
+  "cobble_pale": [
+   256,
+   256
+  ],
+  "planks_weathered": [
+   256,
+   256
+  ],
+  "planks_dark": [
+   256,
+   256
+  ],
+  "planks_grey": [
+   256,
+   256
+  ],
+  "planks_red": [
+   256,
+   256
+  ],
+  "planks_nailed": [
+   256,
+   256
+  ],
+  "planks_knotty": [
+   256,
+   256
+  ],
+  "planks_diagonal": [
+   256,
+   256
+  ],
+  "planks_studded": [
+   256,
+   256
+  ],
+  "planks_patchwork": [
+   256,
+   256
+  ],
+  "planks_cracked": [
+   256,
+   256
+  ],
+  "planks_stained": [
+   256,
+   256
+  ],
+  "planks_herringbone": [
+   256,
+   256
+  ],
+  "grass_dry": [
+   256,
+   256
+  ],
+  "grass_lush": [
+   256,
+   256
+  ],
+  "grass_yellow": [
+   256,
+   256
+  ],
+  "grass_patchy": [
+   256,
+   256
+  ],
+  "grass_wild": [
+   256,
+   256
+  ],
+  "moss_pebbles": [
+   256,
+   256
+  ],
+  "grass_sparse": [
+   256,
+   256
+  ],
+  "grass_flowers": [
+   256,
+   256
+  ],
+  "grass_autumn": [
+   256,
+   256
+  ],
+  "grass_dark": [
+   256,
+   256
+  ],
+  "grass_straw": [
+   256,
+   256
+  ],
+  "grass_clover": [
+   256,
+   256
+  ],
+  "gravel_grey": [
+   256,
+   256
+  ],
+  "gravel_dark": [
+   256,
+   256
+  ],
+  "gravel_pale": [
+   256,
+   256
+  ],
+  "gravel_black": [
+   256,
+   256
+  ],
+  "gravel_tracks": [
+   256,
+   256
+  ],
+  "gravel_mixed": [
+   256,
+   256
+  ],
+  "gravel_dirt": [
+   256,
+   256
+  ],
+  "gravel_tan": [
+   256,
+   256
+  ],
+  "dirt_brown": [
+   256,
+   256
+  ],
+  "mud_puddles": [
+   256,
+   256
+  ],
+  "dirt_cracked": [
+   256,
+   256
+  ],
+  "dirt_tracks": [
+   256,
+   256
+  ],
+  "dirt_red": [
+   256,
+   256
+  ],
+  "dirt_grey": [
+   256,
+   256
+  ],
+  "mud_puddles_2": [
+   256,
+   256
+  ],
+  "mud_clay": [
+   256,
+   256
+  ],
+  "dirt_twigs": [
+   256,
+   256
+  ],
+  "sand": [
+   256,
+   256
+  ],
+  "dirt_sticks": [
+   256,
+   256
+  ],
+  "straw": [
+   256,
+   256
+  ],
+  "cobble_grey": [
+   256,
+   256
+  ],
+  "flagstone_rough": [
+   256,
+   256
+  ],
+  "slabs_pale": [
+   256,
+   256
+  ],
+  "slabs_slate": [
+   256,
+   256
+  ],
+  "bricks_red": [
+   256,
+   256
+  ],
+  "cobble_square": [
+   256,
+   256
+  ],
+  "cobble_mossy": [
+   256,
+   256
+  ],
+  "bricks_herringbone": [
+   256,
+   256
+  ]
+ },
+ "walls": {
+  "timber_plaster_a": [
+   256,
+   416
+  ],
+  "timber_plaster_b": [
+   256,
+   416
+  ],
+  "wood_planks_a": [
+   256,
+   416
+  ],
+  "wood_planks_b": [
+   256,
+   416
+  ],
+  "fieldstone_a": [
+   256,
+   416
+  ],
+  "fieldstone_b": [
+   256,
+   416
+  ],
+  "ashlar_a": [
+   256,
+   416
+  ],
+  "ashlar_b": [
+   256,
+   416
+  ],
+  "brick_a": [
+   256,
+   416
+  ],
+  "brick_b": [
+   256,
+   416
+  ],
+  "wattle_a": [
+   256,
+   416
+  ],
+  "wattle_b": [
+   256,
+   416
+  ]
+ },
+ "roofs": {
+  "shingles_wood": [
+   512,
+   512
+  ],
+  "slate": [
+   512,
+   512
+  ],
+  "tiles_clay": [
+   512,
+   512
+  ],
+  "thatch": [
+   512,
+   512
+  ]
+ },
+ "doors": {
+  "plank_ring": [
+   212,
+   431
+  ],
+  "tavern": [
+   219,
+   431
+  ],
+  "iron_lock": [
+   227,
+   431
+  ],
+  "gothic": [
+   224,
+   431
+  ],
+  "zbrace_ring": [
+   218,
+   431
+  ],
+  "plank_bars": [
+   212,
+   431
+  ],
+  "zbrace_iron": [
+   219,
+   431
+  ],
+  "iron_studded": [
+   227,
+   431
+  ],
+  "panel_dark": [
+   224,
+   431
+  ],
+  "zbrace_light": [
+   218,
+   431
+  ]
+ }
+}
