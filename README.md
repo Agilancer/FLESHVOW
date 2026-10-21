@@ -4,9 +4,9 @@ A dark fantasy game in three.js. Plain ES modules, no build step; three.js r170 
 
 ## Run it
 ```bash
-python -m http.server 8171
+python tools/serve.py 8171
 ```
-Then open http://localhost:8171 and click to enter. Controls: WASD to move, mouse to look, Shift to run, Space to jump,
+Then open http://localhost:8171 and click to enter (the server sends no-cache headers, so edits always reload). Controls: WASD to move, mouse to look, Shift to run, Space to jump,
 E to take an item, I or Tab for the inventory, left mouse to swing (hold to charge a heavy blow, 10 Mana), right mouse to
 raise the shield, Esc to release the mouse. The sword is driven into the ground by the well; the shield leans on it.
 

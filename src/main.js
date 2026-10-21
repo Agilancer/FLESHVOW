@@ -253,6 +253,9 @@ function frame(dt, render = true) {
   listen(camera, camera.getWorldDirection(_w));
   if (render) composer.render();
 }
-renderer.setAnimationLoop(() => frame(Math.min(clock.getDelta(), 0.05)));
+renderer.setAnimationLoop(() => {
+  try { frame(Math.min(clock.getDelta(), 0.05)); }
+  catch (e) { console.error(e); composer.render(); }  // a bug in one system must not freeze the game
+});
 
 window.FLESHVOW = { THREE, scene, camera, renderer, player, colliders, lights, vm, inv, horde, gore, hud, pickups, director, take, findPickup, frame };

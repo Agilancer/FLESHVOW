@@ -382,7 +382,7 @@ export class Zombie {
       if (neck) { this.sever(neck, neck.len * 0.85, dir, power); out.severed = true; }
       else if (b.name !== 'head') { this.sever(b, Math.min(b.len * 0.9, Math.max(b.len * (b.name === 'neck' ? 0.2 : 0.12), yc)), dir, power); out.severed = true; }
     }
-    sfx[out.severed ? 'sever' : 'flesh'](power, point);
+    if (out.severed) sfx.sever(point); else sfx.flesh(power, point);
     const legs = ['thighL', 'shinL', 'thighR', 'shinR'].some(n => this.bones.some(x => x.name === n && x.cut));
     if (this.hp <= 0 || !this.has('neck') || !this.has('abdomen') || legs) { this.die(dir.clone().multiplyScalar(0.6 + power * 0.8)); out.killed = true; }
     if (!out.killed && (this.bones.some(x => x.name.startsWith('foot') && x.cut))) this.limp = 1;

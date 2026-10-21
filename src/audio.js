@@ -26,7 +26,7 @@ export function listen(cam, fwd) {
 function out(pos, gain = 1) {
   const g = ctx.createGain();
   g.gain.value = gain;
-  if (!pos) { g.connect(master); return g; }
+  if (!pos || !Number.isFinite(pos.x + pos.y + pos.z)) { g.connect(master); return g; }
   const p = ctx.createPanner();
   Object.assign(p, { panningModel: 'HRTF', distanceModel: 'inverse', refDistance: 2.5, rolloffFactor: 1.1, maxDistance: 80 });
   p.positionX.value = pos.x; p.positionY.value = pos.y; p.positionZ.value = pos.z;
