@@ -2,38 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>FLESHVOW</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=IM+Fell+English&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
 <link href="src/ui.css" rel="stylesheet">
-<style>
-  html, body { margin: 0; height: 100%; background: #0b0c10; overflow: hidden; color: #d8cbb4; font-family: 'IM Fell English', Georgia, serif; }
-  canvas { display: block; }
-  #veil { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at center, rgba(10,8,8,.55), rgba(5,4,6,.92)); cursor: pointer; user-select: none; transition: opacity .4s; }
-  #veil.hidden { opacity: 0; pointer-events: none; }
-  #veil h1 { font-family: 'Cinzel', serif; font-weight: 700; font-size: clamp(42px, 9vw, 108px); letter-spacing: .18em; margin: 0;
-    color: #b3241c; text-shadow: 0 0 24px rgba(160,20,10,.55), 0 3px 0 #2a0604; }
-  #veil p { margin: .4em 0; font-size: clamp(15px, 2.2vw, 21px); opacity: .85; text-align: center; padding: 0 16px; }
-  #veil .keys { font-size: clamp(13px, 1.7vw, 16px); opacity: .6; }
-  #veil .loading { font-style: italic; opacity: .6; }
-  #cross { position: fixed; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px; border-radius: 50%; background: rgba(230,215,190,.55); pointer-events: none; }
-</style>
 <script type="importmap">
 { "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
 } }
 </script>
 </head>
 <body>
+<canvas id="view"></canvas>
+<canvas id="hud"></canvas>
+<div id="tint"></div>
+<div id="bars"><div class="bar top"></div><div class="bar bottom"></div></div>
+<div id="caption"></div>
+<div id="title"><h1>FLESHVOW</h1><h2></h2></div>
+<div id="msgs"></div>
+<div id="center"></div>
 <div id="veil">
+  <div class="sigil"></div>
   <h1>FLESHVOW</h1>
-  <p class="loading" id="status">The village stirs&hellip;</p>
-  <p class="keys">WASD move &middot; Mouse look &middot; Shift run &middot; Space jump &middot; E take &middot; I inventory<br>Left mouse swing (hold to charge) &middot; Right mouse raise shield &middot; Esc release</p>
+  <p class="loading" id="status">Loading&hellip;</p>
+  <p class="keys">WASD move &middot; Mouse look &middot; Space jump &middot; 1&ndash;8 or wheel weapons &middot; Click fire<br>
+  Shift walk &middot; Esc pause &middot; F toggles the chunky pixels</p>
 </div>
-<div id="cross"></div>
+<div id="touch"><div id="stick"><div></div></div><div id="tfire">FIRE</div><div id="tjump">JUMP</div><div id="tnext">&#x21bb;</div></div>
 <script type="module" src="src/main.js"></script>
 </body>
 </html>
