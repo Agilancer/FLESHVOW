@@ -24,7 +24,9 @@ export class ViewModel {
     this.mats = new Mats();
     this.models = WEAPON_MODELS.map(f => { const g = f(this.mats, 1); g.visible = false; this.scene.add(g); return g; });
     // Quake held its guns low and centred
-    this.rest = [[.14, -.22, -.42], [.03, -.21, -.56], [.03, -.21, -.56], [.03, -.17, -.5], [.03, -.18, -.52], [.03, -.18, -.5], [.03, -.2, -.5], [.03, -.18, -.5]];
+    this.rest = [[.14, -.22, -.42], [.075, -.2, -.52], [.075, -.2, -.52], [.085, -.28, -.62], [.085, -.31, -.64], [.08, -.28, -.6], [.03, -.2, -.5], [.085, -.28, -.62]];
+    this.aimYaw = [0, .1, .1, .1, .09, .1, .04, .1];
+    this.aimPitch = [0, 0, 0, .2, .22, .18, 0, .2];   // angled in toward the crosshair, like Quake's guns
     this.models.forEach(m => m.scale.multiplyScalar(.85));
     const fm = new THREE.SpriteMaterial({ color: 0xffd080, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0 });
     this.flash = new THREE.Sprite(fm); this.flash.scale.set(.18, .18, 1); this.scene.add(this.flash);
@@ -42,7 +44,7 @@ export class ViewModel {
     const bob = Math.min(1, sp / 10) * .012;
     this.kick = Math.max(0, this.kick - dt * 4);
     g.position.set(r[0] + Math.sin(this.bobT) * bob * .5, r[1] + Math.abs(Math.cos(this.bobT)) * bob - this.drop * .3 + P.landKick * .02, r[2] + this.kick * .07);
-    g.rotation.set(.06 + this.kick * .12 + this.drop * -.6, -.03, 0);
+    g.rotation.set(.06 + this.aimPitch[this.cur] + this.kick * .12 + this.drop * -.6, this.aimYaw[this.cur], 0);
     if (this.cur === 0) {   // axe swing
       this.swing = Math.max(0, this.swing - dt * 3.2);
       const s = Math.sin(this.swing * Math.PI);
@@ -212,7 +214,7 @@ export function fireWeapon(G, P, i) {
         P.ammo.cells = 0; G.fx.light(P.pos, [.6, .7, 1], 15, .5); break;
       }
       const h = hitscan(G, P, eye, fwd, 19);
-      G.fx.beam(muzzle, h.p);
+      G.fx.beam(eye.clone().addScaledVector(fwd, 1.1).addScaledVector(up, -.22).addScaledVector(right, .06), h.p, 0xbfd8ff, .05);
       if (h.ent) { G.damage(h.ent, 30 * quad, P, h.p, 'lightning', fwd); G.fx.blood(h.p, 4, fwd.clone().negate()); }
       else if (h.world) G.fx.sparks(h.p, 4);
       break;

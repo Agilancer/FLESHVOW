@@ -3,7 +3,7 @@
 export default {
   id: 'e1m1', title: 'The Drowned Crypt', music: 'crypt',
   base: { wt: 'cw_ashlar' },
-  ambient: .09, startYaw: 0,
+  ambient: .1, startYaw: 0,
   torchCol: [1, .6, .3],
   legend: {
     '#': 'cw_ashlar', K: 'cw_ashlar2', O: 'cw_ossuary', C: 'cw_chapel', N: 'cw_niche', W: 'cw_drowned', G: 'cw_grate', R: 'cw_rust', S: 'cw_slit',
@@ -65,11 +65,11 @@ export default {
 ##WWWWWWWWWWWK::::K:::K::::::K:::K::::D,,,,""""""""O##
 ##W$s$&&&&&&&K::::i:::::::::di::::::::D,g,,""""""k"O##
 ##W$T$&&&&&d&Ws::::::::::::::::::::::s#####""O""O""O##
-##W$$$&&&&&&&W~~~~~~~~~~~==~~~~~~~~~~~W###O""O""O""OOO
-##W&&&&&&&&&&W~~~~~~~~~~~==~~~~~~~~~~~W###O""O""O""O"O
+##W$$$&&&&&&&W~~~~~~~~~~~==~~~~~~~~~~~W###O""Oi"O""OOO
+##W&&&&&&&&&&W~~~~~~~~~~~==~~~~~~~~~~~W###Oi"O""O""O"O
 ##Wi&&&&&&&&&K::::::::::::::::::::::::K###O"zO""O""XyO
-##W&&W&&&&W&&K::::i:::::d::::::::i::::K###O""O""O""Xm#
-##W&z&&&&&&z&D::::K:::K::::::K:::K::::K###O""O"zO""Oj#
+##W&&W&&&&W&&K::::i:::::d::::::::i::::K###O""O"iO""Xm#
+##W&z&&&&&&z&D::::K:::K::::::K:::K::::K###O""O"zO"iOj#
 ##W&&&&&&&&&&D::::::::::::::::::::::::K###Ok"O""O""O##
 ##W&&&%%%%%&&#i:::::g:::::a::::g:::::iK###O""O""OI"O##
 ##W&&&%%%%%&&K:¥::::::::::::::::::::¥:K###O"i"""""iO##

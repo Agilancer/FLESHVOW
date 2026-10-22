@@ -3,9 +3,9 @@
 const SKY = { sky: true, c: 10 };
 export default {
   id: 'e1m2', title: 'The Cathedral of Ash', music: 'cathedral',
-  base: { wt: 'kw_arcade' }, ambient: .08, startYaw: 0,
+  base: { wt: 'kw_arcade' }, ambient: .1, startYaw: 0,
   sky: [.55, .3, .7], skyLight: [.13, .1, .17], torchCol: [1, .58, .3], arch: 'karch_2',
-  lights: [[12.5, 5, 13, [.5, .25, .7], 8], [12.5, 5, 21, [.7, .2, .3], 8], [40.5, 5, 13, [.3, .35, .8], 8], [40.5, 5, 21, [.7, .3, .5], 8], [26.5, 9, 18, [.5, .4, .6], 10]],
+  lights: [[12.5, 5, 13, [.5, .25, .7], 8], [12.5, 5, 21, [.7, .2, .3], 8], [40.5, 5, 13, [.3, .35, .8], 8], [40.5, 5, 21, [.7, .3, .5], 8], [26.5, 5, 14, [.9, .7, .5], 11], [26.5, 5, 22, [.9, .7, .5], 11], [16, 4, 17, [.8, .6, .4], 8], [37, 4, 17, [.8, .6, .4], 8]],
   legend: {
     '#': 'kw_arcade', A: 'kw_arcade', L: 'kw_glass', P: 'kw_pillar', M: 'kw_moss2', K: 'kw_moss', S: 'kw_arcade2',
     ';': { f: 0, ...SKY, ft: 'kf_06', wt: 'kw_moss2' },

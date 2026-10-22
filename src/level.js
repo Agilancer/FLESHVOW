@@ -43,7 +43,7 @@ export class Level {
     const N = this.w * this.h; this.cells = new Array(N);
     const raw = rows.map(r => r.padEnd(this.w, ' '));
     this.raw = raw;
-    const plain = (ch) => { const L = legend[ch]; return L && !L.solid && !L.door && !L.secret && !L.exit && !L.tele && !L.deco && L.plat === undefined && !L.button && !L.box; };
+    const plain = (ch) => { const L = legend[ch]; return L && !L.solid && !L.door && !L.secret && !L.exit && !L.tele && !L.deco && L.plat === undefined && !L.button; };
     const geomChar = (x, z) => {
       // an entity cell takes its geometry from the nearest plain floor neighbour (left first)
       for (const [dx, dz] of [[-1, 0], [1, 0], [0, -1], [0, 1], [-2, 0], [2, 0], [0, -2], [0, 2], [-1, -1], [1, 1], [-1, 1], [1, -1], [-3, 0], [3, 0]]) {
@@ -209,8 +209,12 @@ export class Level {
         }
       }
       if (c.secretArea && !c._grp) {   // a hidden area counts once, whichever of its cells you step in first
-        const grp = { found: false };
-        for (const [a, b] of group(x, z, c.ch)) this.cell(a, b)._grp = grp;
+        const grp = { found: false }, st = [[x, z]];
+        while (st.length) {   // flood over hidden-area cells, items on them included
+          const [a, b] = st.pop(), cc = this.cell(a, b);
+          if (!cc || !cc.secretArea || cc._grp) continue;
+          cc._grp = grp; st.push([a + 1, b], [a - 1, b], [a, b + 1], [a, b - 1]);
+        }
         this.secrets++;
       }
       if (c.exit || c.tele || c.deco) {
@@ -439,7 +443,7 @@ export class Level {
   // ------------------------------------------------------------------ movers and triggers
   fire(name, game) {
     if (!name) return;
-    for (const m of this.movers) if (m.trig === name && m.state !== 'open' && m.state !== 'opening') { m.state = 'opening'; m.perm = true; game?.sound('door', m.parts[0].box); }
+    for (const m of this.movers) if (m.kind === 'door' && m.trig === name && m.state !== 'open' && m.state !== 'opening') { m.state = 'opening'; m.perm = true; game?.sound('door', m.parts[0].box); }
     if (!this.fired.has(name)) { this.fired.add(name); game?.onTrigger(name); }
   }
 
@@ -448,12 +452,12 @@ export class Level {
     for (const m of this.movers) {
       const near = (r) => m.parts.some(({ box }) => P && Math.abs(P.pos.x - (box.x0 + box.x1) / 2) < r + (box.x1 - box.x0) / 2 && Math.abs(P.pos.z - (box.z0 + box.z1) / 2) < r + (box.z1 - box.z0) / 2 && P.pos.y < box.by1 + 1 && P.pos.y + 1.8 > box.by0 - 1);
       if (m.kind === 'door') {
-        if (m.state === 'closed' && !m.trig && P && !P.dead && near(1.6)) {
+        if (m.state === 'closed' && !m.trig && P && !P.dead && near(2.3)) {
           if (m.key && !P.keys.has(m.key)) { if (!m.nagT || m.nagT < game.time) { game.center(`You need the ${m.key} key`); game.sound('locked', P.pos); m.nagT = game.time + 2; } }
           else { m.state = 'opening'; if (m.key) { m.perm = true; game.message(`The ${m.key} key opens the way`); } game.sound('door', m.parts[0].box); }
         }
         if (m.state === 'opening') { m.off = Math.min(m.max, m.off + m.speed * dt); if (m.off >= m.max) { m.state = 'open'; m.wait = 3.5; } }
-        else if (m.state === 'open' && !m.perm) { if (near(1.8)) m.wait = 2; else if ((m.wait -= dt) <= 0) { m.state = 'closing'; game.sound('door', m.parts[0].box); } }
+        else if (m.state === 'open' && !m.perm) { if (near(2.5)) m.wait = 2; else if ((m.wait -= dt) <= 0) { m.state = 'closing'; game.sound('door', m.parts[0].box); } }
         else if (m.state === 'closing') {
           const no = Math.max(0, m.off - m.speed * dt);
           if (this.moverBlocked(m, no, game)) m.state = 'opening'; else { m.off = no; if (no <= 0) m.state = 'closed'; }

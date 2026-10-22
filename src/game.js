@@ -243,6 +243,7 @@ export class Game {
   // ------------------------------------------------------------------ frame
   update(dt, input) {
     this.time += dt; gtime.value = this.time;
+    if (this.state === 'intermission' && this.levelIndex >= LEVELS.length - 1 && this.time - this.interT > 3.5) this.finale();
     const P = this.player, L = this.level;
     this._solid = [P, ...this.monsters.filter(m => m.state !== 'dead' && m.state !== 'down')];
     if (this.state === 'play') {
@@ -305,7 +306,6 @@ export class Game {
     this.interText = `${LEVELS[this.levelIndex].id.toUpperCase()}: ${LEVELS[this.levelIndex].title}\n\nCOMPLETED\n\nTime   ${mm}:${ss}\nKills  ${this.kills} / ${this.totalKills}\nSecrets  ${this.level.secretsFound} / ${this.level.secrets}\n\n` +
       (last ? '' : 'Click to continue');
     this.center(this.interText, 1e9);
-    if (last) setTimeout(() => this.finale(), 3500);
     const ip = this.level.def.intermission;
     if (ip) { this.interCam = ip; }
     this.interT = this.time;

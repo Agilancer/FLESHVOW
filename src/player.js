@@ -114,8 +114,13 @@ export class Player {
 
   hurt(dmg, attacker, from, kind, dir) {
     const G = this.G;
-    if (this.dead || G.godMode) return;
+    if (this.dead) return;
     if (attacker === this && kind !== 'fall') dmg *= .5;   // self splash
+    if (from) {   // knockback (also in god mode, so rocket jumps work there)
+      const d = new THREE.Vector3(this.pos.x - from.x, (this.pos.y + .9) - from.y, this.pos.z - from.z);
+      if (d.lengthSq() > 1e-6) { d.normalize(); this.vel.addScaledVector(d, Math.min(20, dmg * (attacker === this ? .25 : .12))); if (d.y > .2 && this.vel.y > 0) this.onGround = false; }
+    }
+    if (G.godMode) return;
     let save = Math.ceil(this.armorType * dmg);
     if (save >= this.armor) { save = this.armor; this.armorType = 0; }
     this.armor -= save;
@@ -124,10 +129,6 @@ export class Player {
     G.flash([1, 0, 0], Math.min(.6, .1 + take / 40));
     this.punch = Math.min(1, this.punch + .4);
     this.painFace = .3;
-    if (from) {
-      const d = new THREE.Vector3(this.pos.x - from.x, (this.pos.y + .9) - from.y, this.pos.z - from.z);
-      if (d.lengthSq() > 1e-6) { d.normalize(); this.vel.addScaledVector(d, Math.min(20, dmg * (attacker === this ? .25 : .12))); if (d.y > .2 && this.vel.y > 0) this.onGround = false; }
-    }
     if (this.health <= 0) return this.die(kind, dmg);
     if ((this.painT || 0) < G.time) { G.sound(kind === 'drown' ? 'splash' : 'pain', null, { voice: 'player' }); this.painT = G.time + .5; }
   }

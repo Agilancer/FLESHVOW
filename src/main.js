@@ -31,6 +31,7 @@ addEventListener('resize', resize);
 
 // ------------------------------------------------------------------ input
 const input = { fwd: 0, side: 0, jump: false, fire: false, walk: false };
+const hold = { fwd: 0, side: 0, jump: false };   // tests drive movement through this
 const keys = new Set();
 const touch = matchMedia('(pointer: coarse)').matches;
 if (touch) document.body.classList.add('touch');
@@ -50,9 +51,9 @@ addEventListener('keydown', (e) => {
 });
 addEventListener('keyup', (e) => keys.delete(e.code));
 function readKeys() {
-  input.fwd = (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) - (keys.has('KeyS') || keys.has('ArrowDown') ? 1 : 0) + touchMove.f;
-  input.side = (keys.has('KeyD') ? 1 : 0) - (keys.has('KeyA') ? 1 : 0) + touchMove.s;
-  input.jump = keys.has('Space') || touchJump;
+  input.fwd = (keys.has('KeyW') || keys.has('ArrowUp') ? 1 : 0) - (keys.has('KeyS') || keys.has('ArrowDown') ? 1 : 0) + touchMove.f + hold.fwd;
+  input.side = (keys.has('KeyD') ? 1 : 0) - (keys.has('KeyA') ? 1 : 0) + touchMove.s + hold.side;
+  input.jump = keys.has('Space') || touchJump || hold.jump;
   input.walk = keys.has('ShiftLeft') || keys.has('ShiftRight');
   if (keys.has('ArrowLeft')) game.player.yaw += 2.4 / 60;
   if (keys.has('ArrowRight')) game.player.yaw -= 2.4 / 60;
@@ -147,7 +148,7 @@ async function boot() {
   // ?test: start at once, never pause, no damage; FLESHVOW.go(cellX, cellZ, yawDeg, pitchDeg) jumps around
   if (new URLSearchParams(location.search).has('test')) {
     start(); paused = false; game.godMode = true; window.FLESHVOW.test = true;
-    window.FLESHVOW.go = (x, z, yaw = 0, pitch = 0, y) => { const P = game.player, c = game.level.cell(Math.floor(x), Math.floor(z)); P.pos.set(x * 2, y ?? c.f, z * 2); P.vel.set(0, 0, 0); P.yaw = yaw * Math.PI / 180; P.pitch = pitch * Math.PI / 180; };
+    window.FLESHVOW.go = (x, z, yaw = 0, pitch = 0, y) => { const P = game.player, c = game.level.cell(Math.floor(x), Math.floor(z)); P.pos.set(x * 2, y ?? game.level.floorAt(x * 2, c.c, z * 2), z * 2); P.vel.set(0, 0, 0); P.yaw = yaw * Math.PI / 180; P.pitch = pitch * Math.PI / 180; };
   }
 }
 let started = false;
@@ -195,5 +196,6 @@ function step(dt, render) {
 window.FLESHVOW.frame = step;
 window.FLESHVOW.unpause = () => { paused = false; game.center('', .01); };
 window.FLESHVOW.input = input;
+window.FLESHVOW.hold = hold;
 requestAnimationFrame(frame);
 boot().catch(e => { status.textContent = 'Error: ' + e.message; console.error(e); });
